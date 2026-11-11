@@ -23,14 +23,14 @@
         ["Cùng đóng góp", "Dùng thử trên lớp rồi chia sẻ phản hồi dưới 2 phút, để cùng nhau làm các hoạt động hoàn thiện hơn."]],
       about_proj: "Về dự án",
       proj_p: "Hơn 90 hoạt động trên website chỉ là một phần nhỏ còn lưu giữ lại từ những năm Phan Thị Quỳnh Trang dạy tiếng Anh tại Việt Nam. Website là nơi các hoạt động ấy được biến tấu, đặt trong sự giao thoa với kinh nghiệm làm việc cùng TESL Ontario, để thầy cô dùng được dù dạy 22 học sinh ở Toronto hay 45 học sinh ở Hà Nội.",
-      featured: "Trò chơi thí điểm",
+      featured: "Trò chơi nổi bật",
       lib_title: "Thư viện trò chơi", lib_lede: "Lọc theo nhu cầu tiết dạy. Mỗi thẻ dẫn đến trang chi tiết với video, giáo án và góc nhìn Việt Nam.",
       f_search: "Tìm theo tên", f_skill: "Kỹ năng", f_level: "Trình độ", f_grade: "Khối lớp / độ tuổi", f_time: "Thời lượng", f_size: "Sĩ số", f_dev: "Thiết bị",
       any: "Tất cả", t_short: "≤ 15 phút", t_mid: "16–30 phút", t_long: "> 30 phút",
       s_small: "Lớp nhỏ (≤ 25)", s_large: "Lớp đông (40+)", d_no: "Không cần thiết bị", d_yes: "Cần thiết bị",
       showing: function (n, m) { return "Hiển thị " + n + " / " + m + " trò đã xuất bản · kế hoạch " + TOTAL_PLANNED + " trò"; },
       none: "Chưa có trò nào khớp bộ lọc. Hãy bỏ bớt một điều kiện.",
-      skills: { "listening-speaking": "Nghe – Nói", reading: "Đọc", writing: "Viết", "vocab-grammar": "Từ vựng – Ngữ pháp" },
+      skills: { "listening-speaking": "Nghe – Nói", reading: "Đọc", writing: "Viết", "vocab-grammar": "Từ vựng – Ngữ pháp", integrated: "Hoạt động tích hợp" },
       levels: { beginner: "Beginner", intermediate: "Intermediate", advanced: "Advanced" },
       grades: { "1-3": "Lớp 1–3", "3-8": "Lớp 3–8", "4-8": "Lớp 4–8", "9-12": "Lớp 9–12", adult: "Người lớn" },
       min: "phút", students: "học sinh", noDevice: "Không cần thiết bị", device: "Cần thiết bị",
@@ -88,14 +88,14 @@
         ["Contribute", "Try it in class, then share feedback in under 2 minutes so that together we make the activities better."]],
       about_proj: "About the project",
       proj_p: "The 90-plus activities on this site are only a small part of what survives from Phan Thị Quỳnh Trang's years of teaching English in Vietnam. Here they are reworked where they meet her experience working with TESL Ontario, so teachers can use them whether they teach 22 students in Toronto or 45 in Hanoi.",
-      featured: "Pilot games",
+      featured: "Featured games",
       lib_title: "Game library", lib_lede: "Filter by what your lesson needs. Each card opens a page with the video, lesson plan and Vietnam perspective.",
       f_search: "Search by name", f_skill: "Skill", f_level: "Level", f_grade: "Grade / age", f_time: "Time", f_size: "Class size", f_dev: "Equipment",
       any: "Any", t_short: "≤ 15 min", t_mid: "16–30 min", t_long: "> 30 min",
       s_small: "Small (≤ 25)", s_large: "Large (40+)", d_no: "No equipment", d_yes: "Needs equipment",
       showing: function (n, m) { return "Showing " + n + " of " + m + " published games · " + TOTAL_PLANNED + " planned"; },
       none: "No games match these filters yet. Try removing one.",
-      skills: { "listening-speaking": "Listening – Speaking", reading: "Reading", writing: "Writing", "vocab-grammar": "Vocabulary – Grammar" },
+      skills: { "listening-speaking": "Listening – Speaking", reading: "Reading", writing: "Writing", "vocab-grammar": "Vocabulary – Grammar", integrated: "Integrated activity" },
       levels: { beginner: "Beginner", intermediate: "Intermediate", advanced: "Advanced" },
       grades: { "1-3": "Grades 1–3", "3-8": "Grades 3–8", "4-8": "Grades 4–8", "9-12": "Grades 9–12", adult: "Adults" },
       min: "min", students: "students", noDevice: "No equipment", device: "Needs equipment",
@@ -192,7 +192,8 @@
       steps: { en: steps(r.cac_buoc_EN), vi: steps(r.cac_buoc_VI) },
       plan: { en: sections(r.giao_an_EN), vi: sections(r.giao_an_VI) },
       vn: { en: sections(r.goc_nhin_VN_EN), vi: sections(r.goc_nhin_VN_VI) },
-      tip: bi(r, "pro_tip"), video: r.link_video, meta: bi(r, "meta"), photo: r.anh || "", alt: bi(r, "anh_alt"), photoSrc: r.anh_nguon || ""
+      tip: bi(r, "pro_tip"), video: r.link_video, meta: bi(r, "meta"), photo: r.anh || "", alt: bi(r, "anh_alt"), photoSrc: r.anh_nguon || "", source: r.nguon || "",
+      illBoard: r.minh_hoa_bang || "", illLines: (r.minh_hoa_loi || "").split("|").map(function (x) { return x.trim(); }).filter(Boolean), illCards: (r.minh_hoa_the || "").split(",").map(function (x) { return x.trim(); }).filter(Boolean)
     };
   }
   var GAMES = [];
@@ -422,7 +423,7 @@
       q("sc").textContent = t("scene") + " " + (sc + 1) + "/" + N;
       q("bd1").textContent = wrapText(L(game, "name"), 30);
       q("bd2").textContent = (sc + 1) + ". " + wrapText(s.title, 36);
-      q("bd3").textContent = sc === N - 1 ? "✓ ✓ ✓" : (mode === "hotseat" && sc >= 2 ? "UMBRELLA" : "");
+      q("bd3").textContent = sc === N - 1 ? "✓ ✓ ✓" : (mode === "hotseat" && sc >= 2 ? "UMBRELLA" : (game.illCards.length && sc >= 1 ? game.illCards.slice(0, 4).join("  ") : ""));
       q("wall").setAttribute("opacity", mode === "relay" && sc >= 1 && sc < N - 1 ? 1 : (mode === "relay" && sc === 0 ? ease(kk * 2) : 0));
       q("chair").setAttribute("opacity", mode === "hotseat" && sc < N - 1 ? (sc === 0 ? ease(kk * 2) : 1) : 0);
       q("desks").setAttribute("opacity", 1);
@@ -458,8 +459,18 @@
             if (i === 0) { x = 320; y = 262; }
             else { x = grp[0]; y = grp[1] + Math.abs(Math.sin(ph * 3 + i)) * -5; arm = (i === 1 || i === 6) && Math.sin(ph * 2 + i) > 0; }
             if (i === 1) bub0 = Math.sin(ph * 0.8) > -0.2; if (i === 6) bub1 = Math.sin(ph * 0.8) <= -0.2;
+          } else if (mode === "floor") {
+            var spot = [[150, 300], [250, 318], [360, 300], [470, 318], [200, 336], [310, 340], [420, 336], [530, 300]][(i + sc) % 8];
+            var wf = 0.5 + 0.5 * Math.sin(ph * 0.7 + i * 1.3);
+            x = lerp(grp[0], spot[0], wf); y = lerp(grp[1], spot[1], wf); arm = wf > 0.85 && i % 2 === 0;
+            if (i === 0 && wf > .8) bub0 = true; if (i === 5 && wf > .8) bub1 = true;
+          } else if (mode === "pairs") {
+            var pr = Math.floor(i / 2), side = i % 2 ? 1 : -1, px = [150, 270, 390, 510][pr];
+            x = px + side * 26; y = 300 + (pr % 2) * 18 + Math.sin(ph * 2 + i) * 1.5; arm = Math.sin(ph * 1.6 + pr) > 0.4 && i % 2 === 0;
+            if (i === 0) bub0 = Math.sin(ph * 0.8) > -0.1; if (i === 5) bub1 = Math.sin(ph * 0.8) <= -0.1;
           } else {
-            x = grp[0] + Math.sin(ph + i) * 6; y = grp[1];
+            x = grp[0] + Math.sin(ph + i) * 6; y = grp[1] - Math.abs(Math.sin(ph * 2.5 + i)) * 3; arm = Math.sin(ph * 1.3 + i * 2) > 0.75;
+            if (i === 1) bub0 = Math.sin(ph * 0.8) > -0.1; if (i === 6) bub1 = Math.sin(ph * 0.8) <= -0.1;
           }
           teach = [320 + Math.sin(ph * 0.35) * 150, 232];
         }
@@ -467,10 +478,11 @@
         place(i, x, y, arm);
       }
       place(8, teach[0], teach[1], tArm);
-      var B = BUBBLES[game.mode] || BUBBLES.board;
+      var B = game.illLines.length >= 2 ? game.illLines : (BUBBLES[game.mode] || BUBBLES.board);
       var p0 = P[0].getAttribute("transform").match(/[\d.]+/g), p1 = (game.mode === "hotseat" ? P[1] : P[0]).getAttribute("transform").match(/[\d.]+/g);
       if (game.mode === "hotseat") { var a1 = P[1].getAttribute("transform").match(/[\d.]+/g), a6 = P[6].getAttribute("transform").match(/[\d.]+/g); say("b0", +a1[0], +a1[1], B[0], bub0); say("b1", +a6[0], +a6[1], B[1], bub1); }
-      else { var pp = P[game.mode === "mingle" ? 5 : 5].getAttribute("transform").match(/[\d.]+/g); say("b0", +p0[0], +p0[1], B[0], bub0); say("b1", +pp[0], +pp[1], B[1], bub1); }
+      else if (["mingle", "relay", "floor", "pairs"].indexOf(game.mode) > -1) { var pp = P[5].getAttribute("transform").match(/[\d.]+/g); say("b0", +p0[0], +p0[1], B[0], bub0); say("b1", +pp[0], +pp[1], B[1], bub1); }
+      else { var q1 = P[1].getAttribute("transform").match(/[\d.]+/g), q6 = P[6].getAttribute("transform").match(/[\d.]+/g); say("b0", +q1[0], +q1[1], B[0], bub0); say("b1", +q6[0], +q6[1], B[1], bub1); }
       var bts = stepsCur()[1] || s; say("bt", teach[0], teach[1] - 12, wrapText(quoteOf(bts), 40), bt);
       // progress
       $$(".prog b", root).forEach(function (b, j) { b.style.width = (j < sc ? 100 : j > sc ? 0 : Math.round(k * 100)) + "%"; });
@@ -572,6 +584,8 @@
         fig2(150, 330, P[0], { arm: "up", back: false }) + fig2(205, 340, P[5], { hair: "#5a3825" }) + fig2(100, 350, P[6], { s: .95 }) +
         fig2(470, 330, P[3], { arm: "out", flip: true, hair: "#7b4a2a" }) + fig2(530, 344, P[7], { flip: true }) +
         bub(165, 230, "You use it when it rains!") + bub(470, 230, "It keeps you dry.", { left: true }) + bub(336, 198, "Hmm… a raincoat?");
+    } else if (g.mode !== "mingle") {
+      svg = illusGeneric(g);
     } else {
       svg = room("Find Someone Who…", "Ask one question · write one name · move on",
         '<g transform="translate(276 110)">' + [0, 1, 2].map(function (r) { return [0, 1, 2].map(function (c) { return '<rect x="' + (c * 30) + '" y="' + (r * 14) + '" width="28" height="12" fill="none" stroke="#cfe3d8" stroke-width="1"/>' + ((r + c) % 2 ? '<path d="M' + (c * 30 + 8) + ' ' + (r * 14 + 6) + 'l4 4 l8 -8" stroke="#f2c14e" stroke-width="1.6" fill="none"/>' : ''); }).join(""); }).join("") + '</g>') +
@@ -583,7 +597,47 @@
     }
     return '<svg viewBox="0 0 640 400" role="img" aria-label="' + esc(illusAlt(g)) + '" style="display:block;width:100%;height:auto">' + svg + '</svg>';
   }
+  function card2(x, y, label, o) {
+    o = o || {}; var w = o.w || 46, h = o.h || 34, fs = label.length > 6 ? 10 : label.length > 3 ? 13 : 18;
+    return '<g transform="translate(' + x + ' ' + y + ')' + (o.r ? ' rotate(' + o.r + ')' : '') + '"><rect x="' + (-w / 2) + '" y="' + (-h / 2) + '" width="' + w + '" height="' + h + '" rx="5" fill="' + (o.fill || "#fff") + '" stroke="#9aa6bb" stroke-width="1.5"/><text y="' + (fs / 2.8) + '" text-anchor="middle" font-family="Montserrat,Arial,sans-serif" font-size="' + fs + '" font-weight="800" fill="#14213d">' + esc(label) + '</text></g>';
+  }
+  function illusGeneric(g) {
+    var P = PAL, C = g.illCards.length ? g.illCards : ["A", "B", "C", "D", "E"], Ls = g.illLines.length >= 2 ? g.illLines : ["Your turn!", "I know!"];
+    var title = g.illBoard || g.name.en, sub = (g.steps.en[1] || {}).title || "";
+    var s = room(title, sub);
+    if (g.mode === "floor") {
+      var spots = [[110, 330], [210, 350], [320, 330], [430, 350], [530, 330], [160, 380], [380, 382]];
+      s += C.slice(0, 7).map(function (c, k) { return card2(spots[k][0], spots[k][1], c, { r: (k % 3 - 1) * 6, fill: ["#fff4d1", "#e9f5ef", "#e9eef7"][k % 3] }); }).join("") +
+        fig2(200, 318, P[0], { arm: "out" }) + fig2(330, 300, P[1], { arm: "up", hair: "#5a3825" }) + fig2(470, 316, P[3], { flip: true, arm: "out" }) + fig2(560, 286, "#14213d", { s: 1.15, hair: "#1b1b1b", flip: true }) +
+        bub(210, 228, Ls[0]) + bub(470, 226, Ls[1], { left: true });
+    } else if (g.mode === "pairs") {
+      s += fig2(130, 320, P[0], { arm: "out" }) + fig2(220, 320, P[1], { flip: true, hair: "#5a3825" }) + fig2(400, 330, P[2], { arm: "out", hair: "#7b4a2a" }) + fig2(490, 330, P[4], { flip: true }) +
+        (/cup/i.test(g.name.en) ? '<path d="M150 278 Q175 296 200 278" stroke="#8a6d3b" stroke-width="2" fill="none"/><path d="M144 272h10l-2 10h-6z M196 272h10l-2 10h-6z" fill="#f2f2f2" stroke="#9aa6bb"/>' : C.slice(0, 2).map(function (c, k) { return card2(175 + k * 270, 360, c, { w: 60 }); }).join("")) +
+        bub(140, 232, Ls[0]) + bub(480, 240, Ls[1], { left: true });
+    } else if (g.mode === "bowling") {
+      s += C.slice(0, 6).map(function (c, k) { var row = k < 3 ? 0 : k < 5 ? 1 : 2, col = k < 3 ? k : k < 5 ? k - 3 : 0, x = 470 + (row * 22) + col * 44 - 44, y = 300 + row * 22; return '<g transform="translate(' + x + ' ' + y + ')"><ellipse cx="0" cy="12" rx="9" ry="3" fill="rgba(20,33,61,.15)"/><path d="M-7 10 Q-9 -6 -4 -12 Q-6 -20 0 -24 Q6 -20 4 -12 Q9 -6 7 10z" fill="#fff" stroke="#9aa6bb"/><text y="2" text-anchor="middle" font-family="Montserrat,Arial,sans-serif" font-size="9" font-weight="800" fill="#c8102e">' + esc(c) + '</text></g>'; }).join("") +
+        '<circle cx="300" cy="336" r="13" fill="#3d8b7d"/><path d="M276 336h-26M280 344h-20" stroke="#9aa6bb" stroke-width="2.5" stroke-linecap="round"/>' +
+        fig2(170, 340, P[0], { arm: "out" }) + fig2(110, 330, P[1], { hair: "#5a3825" }) + fig2(60, 344, P[2]) +
+        bub(180, 250, Ls[0]) + bub(560, 250, Ls[1], { left: true });
+    } else if (g.mode === "board") {
+      s += C.slice(0, 4).map(function (c, k) { return card2(210 + k * 74, 130, c, { w: 60, h: 30 }); }).join("") +
+        fig2(250, 268, P[0], { arm: "up" }) + fig2(400, 268, P[3], { arm: "up", hair: "#7b4a2a", flip: true }) +
+        fig2(150, 350, P[1], { back: true }) + fig2(210, 360, P[5], { back: true, hair: "#5a3825" }) + fig2(430, 360, P[2], { back: true }) + fig2(490, 350, P[6], { back: true }) +
+        bub(240, 204, Ls[0], { left: true }) + bub(410, 204, Ls[1]);
+    } else { // table
+      s += '<rect x="130" y="300" width="380" height="14" rx="5" fill="#b9c3d4"/><rect x="146" y="314" width="8" height="40" fill="#b9c3d4"/><rect x="486" y="314" width="8" height="40" fill="#b9c3d4"/>' +
+        C.slice(0, 5).map(function (c, k) { return card2(190 + k * 65, 290, c, { w: 52, h: 26, fill: ["#fff4d1", "#e9f5ef", "#e9eef7"][k % 3] }); }).join("") +
+        fig2(150, 280, P[0], { arm: "out" }) + fig2(250, 268, P[1], { hair: "#5a3825", s: .9 }) + fig2(390, 268, P[2], { s: .9 }) + fig2(490, 280, P[4], { flip: true, arm: "out" }) +
+        bub(160, 196, Ls[0]) + bub(490, 196, Ls[1], { left: true });
+    }
+    return s;
+  }
   function illusAlt(g) {
+    if (L(g, "alt")) return L(g, "alt");
+    if (["mingle", "relay", "hotseat"].indexOf(g.mode) < 0) {
+      var lines = g.illLines.length >= 2 ? "“" + g.illLines[0] + "” – “" + g.illLines[1] + "”" : "";
+      return lang === "vi" ? "Hình minh họa 2D cho trò " + L(g, "name") + ": học sinh đang chơi" + (lines ? ", nói " + lines : "") + "." : "2D illustration of " + L(g, "name") + ": students playing" + (lines ? " and saying " + lines : "") + ".";
+    }
     var A = {
       mingle: { vi: "Hình minh họa 2D: học sinh cầm bảng câu hỏi 3×3 đi lại hỏi nhau theo cặp, ví dụ “Do you have a younger brother?” – “Yes, I do!”, giáo viên quan sát.", en: "2D illustration: students holding 3×3 question grids ask each other in pairs, e.g. “Do you have a younger brother?” – “Yes, I do!”, while the teacher watches." },
       relay: { vi: "Hình minh họa 2D: Người chạy đọc đoạn văn dán trên tường rồi chạy về đọc lại cho Người viết ngồi ở bàn nhóm; Người viết hỏi “Can you spell ‘waiting’?”.", en: "2D illustration: a Runner reads a text taped on the wall and hurries back to dictate it to the Writer at the group desk, who asks “Can you spell ‘waiting’?”." },
@@ -735,7 +789,7 @@
     var blocks = [["align", t("b_align")], ["why", t("b_why")], ["video", t("b_video")], ["plan", t("b_plan")], ["vn", t("b_vn")], ["tip", t("b_tip")], ["feedback", t("b_fb")]];
     var other = lang === "vi" ? g.name.en : g.name.vi;
     return '<nav class="crumbs" aria-label="breadcrumb"><a href="#library">← ' + t("back") + '</a></nav>' +
-      '<header class="g-head"><p class="eyebrow">' + esc(g.id) + ' · ' + esc(g.step) + ' · CEFR ' + esc(g.cefr) + '</p><h1 id="page-h">' + esc(L(g, "name")) + '</h1><p class="alt" lang="' + (lang === "vi" ? "en" : "vi") + '">' + esc(other) + '</p>' + chips(g) +
+      '<header class="g-head"><p class="eyebrow">' + esc(g.id) + ' · ' + esc(g.step) + ' · CEFR ' + esc(g.cefr) + '</p><h1 id="page-h">' + esc(L(g, "name")) + '</h1><p class="alt" lang="' + (lang === "vi" ? "en" : "vi") + '">' + esc(other) + '</p>' + (g.source ? '<p class="msg">' + (lang === "vi" ? "Phát triển từ hoạt động “" : "Developed from the activity “") + esc(g.source) + (lang === "vi" ? "” trong Teaching Gallery" : "” in the Teaching Gallery") + '</p>' : '') + chips(g) +
       '<dl class="summary">' +
       '<div><dt>' + t("sum_level") + '</dt><dd>' + esc(levelTxt(g)) + '<br><span class="msg">' + esc(g.step) + ' · CEFR ' + esc(g.cefr) + '</span></dd></div>' +
       '<div><dt>' + t("sum_time") + '</dt><dd>' + g.time[0] + "–" + g.time[1] + " " + t("min") + '</dd></div>' +

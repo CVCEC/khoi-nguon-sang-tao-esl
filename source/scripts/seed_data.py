@@ -9,7 +9,7 @@ COLS = ["id","slug","status","ten_EN","ten_VI","ky_nang","trinh_do","step_level"
         "thoi_luong","si_so","thiet_bi","chuan_bi_EN","chuan_bi_VI","kieu_video",
         "ontario_program","ontario_strand","ontario_expectation",
         "the_why_EN","the_why_VI","cac_buoc_EN","cac_buoc_VI","giao_an_EN","giao_an_VI",
-        "goc_nhin_VN_EN","goc_nhin_VN_VI","pro_tip_EN","pro_tip_VI","link_video","meta_EN","meta_VI","anh","anh_alt_EN","anh_alt_VI","anh_nguon"]
+        "goc_nhin_VN_EN","goc_nhin_VN_VI","pro_tip_EN","pro_tip_VI","link_video","meta_EN","meta_VI","anh","anh_alt_EN","anh_alt_VI","anh_nguon","nguon","minh_hoa_bang","minh_hoa_loi","minh_hoa_the"]
 
 G = []
 
@@ -365,6 +365,13 @@ meta_EN="Hot Seat: a team vocabulary game where students explain words without s
 meta_VI="Ghế nóng: trò chơi từ vựng theo đội, học sinh giải thích từ mà không được nói ra, kèm giáo án theo khung Ontario và mẹo cho lớp đông.",
 ))
 
+import sys; sys.path.insert(0, os.path.dirname(__file__))
+from games_batch2 import G as G2
+from games_batch3 import G as G3
+G += G2 + G3
+import games_c1, games_c2, games_c3, games_c4  # noqa: F401  (append to compact_common.G)
+from compact_common import G as GC
+G += GC
 base = os.path.join(os.path.dirname(__file__), "..", "data")
 with open(os.path.join(base, "games.csv"), "w", newline="", encoding="utf-8") as f:
     w = csv.DictWriter(f, fieldnames=COLS); w.writeheader()
@@ -385,7 +392,7 @@ for r in [
  ["Cột","Ý nghĩa / quy ước"],
  ["id, slug","Mã trò (G001…) và đường dẫn web (chữ thường, gạch ngang)."],
  ["status","pilot = hiển thị; draft = ẩn."],
- ["ky_nang","Nhiều giá trị cách nhau bởi ; — listening-speaking, reading, writing, vocab-grammar"],
+ ["ky_nang","Nhiều giá trị cách nhau bởi ; — listening-speaking, reading, writing, vocab-grammar, integrated (hoạt động tích hợp)"],
  ["trinh_do","beginner;intermediate;advanced"],
  ["khoi_lop","1-3;3-8;4-8;9-12;adult (dùng cho bộ lọc)"],
  ["thoi_luong / si_so","Khoảng số, ví dụ 15-20 (phút) / 10-45 (học sinh)"],
@@ -397,6 +404,8 @@ for r in [
  ["goc_nhin_VN_*","3 mục ##. Mục 1 là bảng: Tiêu chí | Ontario | Việt Nam."],
  ["link_video","Để trống = dùng video 2D dựng sẵn; điền URL MP4/YouTube khi có video sản xuất."],
  ["meta_*","Mô tả meta SEO (≤160 ký tự)."],
+ ["nguon","Tên hoạt động gốc trong Teaching Gallery (trangphan.org), nếu có."],
+ ["minh_hoa_bang / minh_hoa_loi / minh_hoa_the","Hình minh họa 2D và video: chữ trên bảng; hai câu thoại cách nhau bởi | ; nhãn thẻ/đồ vật cách nhau bởi dấu phẩy."],
  ["anh, anh_alt_*","Để trống = dùng hình minh họa 2D tự vẽ theo kieu_video. Khi có ảnh chụp đúng trò chơi: đường dẫn trong img/ + ALT text mô tả ai, đang làm gì, ở đâu."],
 ]: g2.append(r)
 g2.column_dimensions["A"].width = 22; g2.column_dimensions["B"].width = 100
