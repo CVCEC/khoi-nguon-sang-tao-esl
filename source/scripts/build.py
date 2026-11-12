@@ -15,7 +15,7 @@ ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 SRC, DATA, DIST = [os.path.join(ROOT, d) for d in ("src", "data", "dist")]
 CFG = {"authorSite": "https://www.trangphan.org", "linkedin": "https://www.linkedin.com/in/phan-thi-quynh-trang-cvcec", "facebook": "", "rifAlbum": "https://drive.google.com/drive/folders/1QcEU-sIorNBMVrh07D126r4Y3hdV3CAw?usp=sharing",
        "googleForm": {"url": "https://docs.google.com/forms/d/e/1FAIpQLScRG1KuWac8WAMlMveqbuSzmqsfKwNJCACP55GnVjxOfRDf9w/viewform", "entryGame": "entry.186104599"}}
-NAVY = colors.HexColor("#14213d"); GOLD = colors.HexColor("#e8a900"); MUTED = colors.HexColor("#56627a"); TINT = colors.HexColor("#e9eef7")
+NAVY = colors.HexColor("#1d6b41"); GOLD = colors.HexColor("#f6b93b"); MUTED = colors.HexColor("#587064"); TINT = colors.HexColor("#e4f4e8")
 
 rows = list(csv.DictReader(open(os.path.join(DATA, "games.csv"), encoding="utf-8")))
 rows = [r for r in rows if r.get("status", "pilot") != "draft"]
@@ -87,7 +87,7 @@ TITLE = "Khơi nguồn sáng tạo hoạt động ESL"
 DESC = "Thư viện trò chơi ESL song ngữ Anh–Việt do Phan Thị Quỳnh Trang biên soạn: video 2D, giáo án theo khung Ontario, góc nhìn lớp học Việt Nam."
 
 # artifact
-A = os.path.join(DIST, "artifact"); os.makedirs(A); shutil.copytree(os.path.join(SRC, "img"), os.path.join(A, "img"))
+A = os.path.join(DIST, "artifact"); os.makedirs(A); shutil.copytree(os.path.join(SRC, "img"), os.path.join(A, "img")); shutil.copytree(os.path.join(SRC, "vid"), os.path.join(A, "vid"))
 acfg = dict(CFG, mode="artifact")
 open(os.path.join(A, "index.html"), "w", encoding="utf-8").write(
   f'<title>{TITLE}</title>\n<meta name="claude:viewport-fit-sides" content="cover">\n<meta name="description" content="{e(DESC)}">\n<meta name="author" content="Phan Thị Quỳnh Trang">\n{FONTS}\n<style>\n{css}\n</style>\n{body}\n'
@@ -96,7 +96,7 @@ open(os.path.join(A, "index.html"), "w", encoding="utf-8").write(
 # static site
 W = os.path.join(DIST, "site")
 for d in ("assets", "data", "apps-script"): os.makedirs(os.path.join(W, d), exist_ok=True)
-shutil.copytree(os.path.join(SRC, "img"), os.path.join(W, "img"))
+shutil.copytree(os.path.join(SRC, "img"), os.path.join(W, "img")); shutil.copytree(os.path.join(SRC, "vid"), os.path.join(W, "vid"))
 open(os.path.join(W, "assets", "app.css"), "w", encoding="utf-8").write(css)
 open(os.path.join(W, "assets", "app.js"), "w", encoding="utf-8").write(js)
 shutil.copy(os.path.join(DATA, "games.csv"), os.path.join(W, "data", "games.csv"))
