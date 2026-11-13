@@ -13,7 +13,7 @@ from reportlab.lib.styles import ParagraphStyle
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 SRC, DATA, DIST = [os.path.join(ROOT, d) for d in ("src", "data", "dist")]
-CFG = {"authorSite": "https://www.trangphan.org", "linkedin": "https://www.linkedin.com/in/phan-thi-quynh-trang-cvcec", "facebook": "", "rifAlbum": "https://drive.google.com/drive/folders/1QcEU-sIorNBMVrh07D126r4Y3hdV3CAw?usp=sharing",
+CFG = {"authorSite": "https://www.trangphan.org", "linkedin": "https://www.linkedin.com/in/phan-thi-quynh-trang-cvcec", "facebook": "https://www.facebook.com/phanthiquynhtrang.cvcec/", "rifAlbum": "https://drive.google.com/drive/folders/1QcEU-sIorNBMVrh07D126r4Y3hdV3CAw?usp=sharing",
        "googleForm": {"url": "https://docs.google.com/forms/d/e/1FAIpQLScRG1KuWac8WAMlMveqbuSzmqsfKwNJCACP55GnVjxOfRDf9w/viewform", "entryGame": "entry.186104599"}}
 NAVY = colors.HexColor("#1d6b41"); GOLD = colors.HexColor("#f6b93b"); MUTED = colors.HexColor("#587064"); TINT = colors.HexColor("#e4f4e8")
 
