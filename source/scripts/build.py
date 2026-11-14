@@ -82,7 +82,7 @@ shutil.rmtree(DIST, ignore_errors=True); os.makedirs(DIST)  # PDF giáo án: kh�
 css = open(os.path.join(SRC, "app.css"), encoding="utf-8").read()
 js = open(os.path.join(SRC, "app.js"), encoding="utf-8").read()
 body = open(os.path.join(SRC, "body.html"), encoding="utf-8").read()
-FONTS = '<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Open+Sans:wght@400;600;700&display=swap">'
+FONTS = '<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Open+Sans:wght@400;600;700&family=Roboto:ital,wght@0,400;0,500;0,700;1,400&display=swap">'
 TITLE = "Khơi nguồn sáng tạo hoạt động ESL"
 DESC = "Thư viện trò chơi ESL song ngữ Anh–Việt do Phan Thị Quỳnh Trang biên soạn: video 2D, giáo án theo khung Ontario, góc nhìn lớp học Việt Nam."
 
